@@ -88,27 +88,33 @@ ohai "This script will:"
 printf "  1- Compile source code\n"
 printf "  2- Config Info.plist\n"
 printf "  3- Code-Sign app for local use\n"
-#printf "  4- Move app to the Application folder\n"
+printf "  4- Move app to the Application folder\n"
 
 wait_for_user
 
-osacompile -o "./Releases/Transmitter.app" "./src/Transmitter.applescript"
-cp ./src/Info.plist ./Releases/Transmitter.app/Contents
+
+if [[ -d "./Releases/Transmitter.app" ]]
+then    
+    rm -rf ./Releases/Transmitter.app
+fi
+
+osacompile -o "./Releases/Transmitter.app" "./src/TransmitterBrew.applescript"
+cp ./src/Info.plist ./Releases/Transmitter.app/Contents/
 
 codesign --verify --verbose ./Releases/Transmitter.app
 codesign --force --sign - --timestamp=none ./Releases/Transmitter.app
 codesign --verify --verbose ./Releases/Transmitter.app
 
-#xattr -lr MagnetHelper.app
-#xattr -cr MagnetHelper.app         
+#xattr -lr ./Releases/Transmitter.app
+#xattr -cr ./Releases/Transmitter.app         
 
 if [[ -d "/Applications/Transmitter.app" ]]
 then    
     rm -rf /Applications/Transmitter.app
 fi
 
-#cp -a ./Releases/MagnetHelper.app /Applications/MagnetHelper.app
-#open -a /Applications/MagnetHelper.app
+cp -a ./Releases/Transmitter.app /Applications/Transmitter.app
+open -a /Applications/Transmiter.app
 
 echo
 ohai "That's all!"
