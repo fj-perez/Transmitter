@@ -105,8 +105,8 @@ codesign --verify --verbose ./Releases/Transmitter.app
 codesign --force --sign - --timestamp=none ./Releases/Transmitter.app
 codesign --verify --verbose ./Releases/Transmitter.app
 
-#xattr -lr ./Releases/Transmitter.app
-#xattr -cr ./Releases/Transmitter.app         
+# #xattr -lr ./Releases/Transmitter.app
+# #xattr -cr ./Releases/Transmitter.app         
 
 if [[ -d "/Applications/Transmitter.app" ]]
 then    
@@ -114,7 +114,7 @@ then
 fi
 
 cp -a ./Releases/Transmitter.app /Applications/Transmitter.app
-open -a /Applications/Transmiter.app
+open -a /Applications/Transmitter.app
 
 echo
 ohai "That's all!"
